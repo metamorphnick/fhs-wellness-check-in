@@ -38,13 +38,14 @@ const default_reason_options = [
   "Outside Agency check-in"
 ];
 
-function parse_reason_csv(csv_text: string) {
-  return csv_text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line && !line.startsWith("#"))
-    .map((line) => line.split(",")[0]?.trim().replace(/^"|"$/g, "") ?? "")
-    .filter((line, index) => line && !(index === 0 && line.toLowerCase() === "reason"));
+function parse_reason_options(data: unknown) {
+  if (!Array.isArray(data)) {
+    return [];
+  }
+
+  return data.filter(
+    (reason): reason is string => typeof reason === "string" && reason.trim().length > 0
+  );
 }
 
 function SquareMark({
@@ -178,9 +179,9 @@ function CheckInForm({ on_submitted }: { on_submitted: (submission: CheckInPaylo
     let is_mounted = true;
 
     axios
-      .get<string>("/reasons.csv", { responseType: "text" })
+      .get<unknown>("/reasons.json")
       .then((response) => {
-        const configured_reasons = parse_reason_csv(response.data);
+        const configured_reasons = parse_reason_options(response.data);
         if (is_mounted && configured_reasons.length > 0) {
           set_reason_options(configured_reasons);
         }
