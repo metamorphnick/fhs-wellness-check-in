@@ -46,8 +46,41 @@ const theme = extendTheme({
         }
       }),
       variants: {
+        stacked: defineRadioPartsStyle({
+          container: {
+            alignItems: "center",
+            flexDirection: "column",
+            gap: "8px",
+            justifyContent: "flex-start",
+            minH: "86px",
+            textAlign: "center",
+            border: "1px solid",
+            borderColor: "gray.400",
+            borderRadius: "8px",
+            padding: "15px 12px 12px",
+            _hover: {
+              bg: "gray.50"
+            },
+            _checked: {
+              borderColor: "brand.500",
+              bg: "#F7FAFF",
+              _hover: {
+                bg: "#F7FAFF"
+              }
+            }
+          },
+          label: {
+            marginInlineStart: 0,
+            fontWeight: "400",
+            lineHeight: "1.25",
+            minH: "34px"
+          }
+        }),
         solid: defineRadioPartsStyle({
           container: {
+            alignItems: "center",
+            flexDirection: "column",
+            gap: "6px",
             justifyContent: "center",
             minH: "56px",
             border: "1px solid",
@@ -80,6 +113,7 @@ const theme = extendTheme({
             }
           },
           label: {
+            marginInlineStart: 0,
             fontWeight: "400"
           }
         })

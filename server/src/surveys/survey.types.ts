@@ -29,11 +29,12 @@ export interface SurveyDefinition {
   title: string;
   subtitle: string;
   timeframe: string;
+  scoring: "scored" | "manual";
   options: SurveyOption[];
   questions: SurveyQuestion[];
-  difficulty: DifficultyQuestion;
-  scoreBands: ScoreBand[];
-  maxScore: number;
+  difficulty?: DifficultyQuestion;
+  scoreBands?: ScoreBand[];
+  maxScore?: number;
 }
 
 export interface ScoreRequest {
@@ -46,4 +47,15 @@ export interface ScoreResult {
   score: number;
   maxScore: number;
   band: ScoreBand;
+}
+
+export interface SaveSurveyRequest {
+  surveyId: string;
+  responses: Record<string, number>;
+  surveyScore?: number;
+  symptomSeverity?: string;
+}
+
+export interface SavedSurvey extends SaveSurveyRequest {
+  savedAt: string;
 }

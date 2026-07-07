@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
-    "dev:client": "vite --host 127.0.0.1",
-    "dev:server": "tsx watch --tsconfig server/tsconfig.json server/src/main.ts",
+    "dev": "node api.js && concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "node api.js && vite --host 127.0.0.1",
+    "dev:server": "node api.js && tsx watch --tsconfig server/tsconfig.json server/src/main.ts",
     "build": "tsc -p server/tsconfig.json && vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p server/tsconfig.json"
   },
@@ -19,8 +19,10 @@
     "@nestjs/platform-express": "^11.1.6",
     "@vitejs/plugin-react": "^5.1.1",
     "concurrently": "^9.2.1",
+    "dotenv": "^8.2.0",
     "framer-motion": "^12.40.0",
     "lucide-react": "^0.468.0",
+    "node-fetch": "^3.3.2",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "reflect-metadata": "^0.2.2",
